@@ -1,0 +1,134 @@
+---
+title: "ECON 4110.Data Translation Writeup"
+format: pdf
+editor: visual
+---
+
+## ECON 4110 \| Data Translation Project 
+
+Kevin Bennett, Tina Chau, Adam Kikuta, Tao Squires 
+
+5.9.23 
+
+1.  How has COVID affected the health of the retail industry, as measured by employment? 
+
+We are running this analysis to examine how COVID has affected the health of the retail industry, as measured by employment.  In our analysis, we first graphed the number of retail trade employees from 2019 to 2022.  We can see a downward trend over time, and, in March 2020, we see a steep drop in the number of employees, which is when COVID was declared a global pandemic.  This graph allowed us to see that there was a significant change in the health of the retail industry because of the pandemic.   
+
+Next, we ran a regression using regression discontinuity design with fixed effects for the retail industry. This model compared the \"jump\" at the cutoff for the retail industry to a vale that represents the aggregate \"jump\" for all other industries.  This model regressed employment status on \"covid.pre.post\", our cutoff variable that tells us if the date is before or after March 2020, interacted with an indicator variable that takes a value of 1 if \"indname\" = \"Retail Trade\", and 0 if not, and an interaction with the running variable, time, which is centered around the cutoff date. This regression allows us to see the effect COVID has had on the health of the retail industry.  From our regression, when we add Beta 2 and Beta 5, we get --0.0868 which tells us that the retail employment share dropped by that amount. Beta 5 tells us that the retail industry\'s employment share dropped 0.0037 units more than other industries. All of these values are statistically signifcant with a p-value of 0.001 or lower. 
+
+In this question, we measured the number of retail trade employees by filtering only for rows that had \"indname\" = \"Retail Trade\", and we filtered for \"EMPSTAT\" = 10, which are only people who are \"at work\" because we wanted to get a count of the total number of people employed in retail.  Also, we used March 2020 as our cutoff date because that is when COVID was declared a global pandemic. 
+
+After looking at our graph and regression models, we can conclude that COVID did have a negative effect on the health of the retail industry, as employment share dropped by 0.0868 units. 
+
+Figure 1) Monthly Retail Industry Employment Graph: 
+
+ ![](Images/Figure%201.png)
+
+Table 1) Regression result for Question 1:  
+
+ ![](Images/Table%201.png){width="494"}
+
+2.  How has retail fared relative to other industries? 
+
+To answer the question "How has retail fared relative to other industries?", We did an analysis on the employment status and compared the retail industry with other industries over a specific time period. To visually explore the number of employees per month across different industries, the code generates a line plot using the ggplot2 package. The plot displays the count of employees over time, with different industries represented by different colors. The dashed orange vertical line marks the start of a significant event (in this case, at the start of COVID in March 2020). The retail industry, represented by a light purple color, exhibits a significant decline in employment compared to other industries, particularly during the COVID-19 pandemic. The dip around March 2020 was the main indicator of this.  
+
+Figure 2) Monthly Employment Graph for all Industries 
+
+ ![](Images/Figure%202.png){width="681"}
+
+Next, the code performs regression analysis to compare the retail industry with other industries. The regression used regression discontinuity design with fixed effects for industry, and drops the Retail industry as the reference group. By including interaction terms between industry, center date, and COVID-19 period, the regression captures the change in each industry\'s employment share relative to the change in retail employment share. The results reveal that several industries experienced a significant change in employment share compared to retail during the specified time period. For example, the industries of Arts, Entertainment, and Recreation, and Accommodation and Food Services had a substantially lower employment share (-0.1692, p \< 0.001), while Public Administration had a higher employment share (0.0677, p \< 0.001) compared to retail. 
+
+Table 2) Regression result for Question 2 
+
+ ![](Images/Table%202.png)
+
+Based on the regression results and the analysis of our graph, the findings consistently indicate that the retail industry has experienced a decline in employment compared to other sectors. The coefficients obtained from the regression analysis provide statistical evidence supporting this conclusion, highlighting the challenges and greater impact faced by the retail industry during the COVID time period. Specifically, our regression analysis reveals that employment in the retail industry was significantly lowered by 0.0868 (p \< 0.001) during the post-COVID period compared to the pre-COVID period. With these statistical findings, coupled with the observations from our plots, further confirm the impact of COVID on employment in the retail industry. 
+
+3.  Retail needs to worry about who has money to spend - what has changed about who is working and earning money? 
+
+Answering the question of what has changed about who is working and earning money, we looked at 4 different demographic categories; Age, Sex, Race, and Marital Status. We ran a regression for each demographic using regression discontinuity design with fixed effects for the subsets in each demographic of interest. Our results examine the change in employment share for the relevant subsets in each of these demographics. Our analysis proceeds as follows.  
+
+First, we evaluated the Age demographic variable. We divided the age range included in the data set into four groups, based on the generation each age value falls into. Our generational divides are calculated as follows: age 77 or greater are denoted as \"Baby Boomer +\", ages 52-76 are denoted as \"Baby Boomer,\" ages 27-51 are denoted as \"Generation X,\" and ages 15-26 are denoted as \"Generation Z.\"  
+
+First, we visualized the number of people who were employed within each Generation, per month.  
+
+Figure 3) Monthly Employment Graph per Generation 
+
+ ![](Images/Figure%203.png)
+
+Then, we ran a regression with regression discontinuity design, include fixed effects for Generation, and drop the \"Baby Boomer +\" age group, so that every other age group\'s change in employment share is given in comparison to the change in the Baby Boomer + age group employment share. The results are as follows: 
+
+Table 3) Regression Results for Question 3, part 1.  
+
+ ![](Images/Table%203.png)
+
+The effect of the cutoff date on employment share in the Baby Boomer + Generation is --8.28%, as compared to the employment share immediately before the cutoff date. This decrease is statistically significant at the .001 level, indicating that the cutoff date had a significant effect on Baby Boomer + employment share.   
+
+Generation X\'s employment share declined 7.5%, 78 basis points less than the Baby Boomer + group. The difference between the BB+ group decline and the Gen X group decline is statistically significant at the .001 level. 
+
+The Baby Boomer Generation\'s employment share declined 8.27%, 63 basis points less than the decline in BB+ employment share, which is a statistically significant difference at the .001 level.  
+
+Generation Z experienced a 12.29% decline in employment share, a decline 4.01% greater than the BB+ group. The difference is statistically significant at the .001 level. 
+
+	Our estimates reflect the effect of the March 2020 date cutoff on the employment share of each of our 4 Generational groups, made up of individuals whose ages range between 15 and 85. More generally, our estimates capture the effect of the WHO recognition of COVID-19 as a global pandemic on the employment share for each of our Generational groups.  
+
+	Our results imply that Retail should target Generation X, as they experienced the smallest decline in employment share due to COVID-19, and will likely have more disposable income due to being employed than other Generation groups.  
+
+	Our next demographic of interest is Sex. First, we visualized the number of people who were employed within each Sex, per month. Then, we ran a regression with regression discontinuity design, include fixed effects for Sex, and drop the \"MALE\" Sex to be used as a reference group. The Results are as follows:  
+
+	The reference group, male employment share, declined 7.67% at the cutoff, a result that is statistically significantly different than the male employment share immediately preceding the cutoff at the .001 level. Female employment share fell 9.15%, 1.48% more than the male decline, a difference that is statistically significant at the .001 level.  
+
+Our estimates reflect the effect of the March 2020 date cutoff on the employment share of each of our 2 Sex groups, made up of individuals who identify as Male or Female. More generally, our estimates capture the effect of the WHO recognition of COVID-19 as a global pandemic on the employment share for each of our Sex groups, Male and Female. 
+
+Our results imply that the Retail trade should target the Male group, as they experienced the smaller decline in employment share due to COVID-19, and will likely have more disposable income due to being employed than the Female Sex group. 
+
+Figure 4) Monthly Employment Graph per Sex. 
+
+ ![](Images/Figure%204.png)
+
+Table 4) Regression Results for Question 3, part 2. 
+
+ ![](Images/Table%204.png)
+
+The next demographic we looked at was Race. We created a visualization using ggplot comparing the count of employed workers in each race category over the period of 2016-2022. The races we include are White, Asian/Islander, Black, Native, and Other/Two or more races. Our plot illustrated a steep dip in all race's employment status at our center point in March 2020 when Covid began to take effect.  
+
+Next, we decided to use the race \"White\" as a reference group and created a regression with a dependent variable being Employment Status and independent variables of \"Race\", \"Center. Date\", and \"covid.pre.post\". The results indicate that the "covid.pre.post" period had a significant negative effect (-0.0774) on "Employment.Status.numeric," suggesting a decrease in employment status of 7.74% at the cutoff date of March 2020. With the reference group as race being White, we notice that the race Black was affected by (-0.0271) units more than race White. In total, the race Black had a 10.45% decrease in employment share. For Asian/Islander, the results showed that Asian/Islander was affected (-0.0259) units more than race White. The total decrease in employment share for Asian/Islander from the effect of covid would be 10.33%. For the race group Native, Native was affected (-0.0322) units more than the reference. Native results showed a 10.96% change in employment share from a result of Covid. Finally, Other/Two or more races were affected (-0.0379) units more than White. In total, Other/Two or more race group had an 11.53% decrease in employment share as a result of Covid. All values that were talked about were highly statistically significant with a p-value of .001 or lower. This means that the effects of covid on employment share of all races compared to the decline in white employment share was statistically significant by their respective value.  Based on the analysis for race, the regression shows that the group that was least affected in terms of employment status was the reference group White and would be the best demographic to target for Retailers as they are the race that kept the most employment status after the effect of Covid.  
+
+Our estimates reflect the effect of the March 2020 date cutoff on the employment share of each of our 5 racial groups, made up of individuals of Black, White, Asian/Islander, Native, and Other/Two or more races. More generally, our estimates capture the effect of the WHO recognition of COVID-19 as a global pandemic on the employment share for each of our racial groups. 
+
+	Figure 5) Monthly Employment Graph, per Race. 
+
+![](Images/Figure%205.png) ![]()
+
+	Table 5) Regression Result for Question 3, part 3.  
+
+ ![](Images/Table%205.png)
+
+The next demographic we took a look at was Marital Status. The status\' we looked at are \"Married\", \"Married Alone\", \"Separated\", \"Divorced\", \"Always Single\", and \"Widow\". After creating a ggplot of Marital Status, we noticed that all statuses illustrate a dip at the center point of March 2020 when Covid began to take effect. For our reference group, we chose \"Widow\" and created a regression with the independent variable Employment.Status.numeric with dependent variables of Marital.Status, Center.Date, and covid.pre.post. The coefficient estimate for "covid.pre.postAfter" (-.0897) and is highly statistically significant. For those who are Always Single, we notice that they were affected by (-0.0216) units more than the Widow reference and had a greater loss in employment share. In total, the Always Single status\' employment share decreased 11.13% after the effect of Covid. Our next group, Divorced, had a value of (.0101) and is statistically significant at the .01 p-value. This means that those who are Divorced have .0101 higher employment share than our Widow group. So, in total, Divorced had a 7.96% decrease in employment share after the effect of Covid. Married also had a higher employment share than our Widow by a value of (.0239) which is statistically significant on the p-value of .001 meaning it has high statistical significance. This means that they have .0239 units more than our change in Widow employment share. The total change in our Married status is a 6.58% decrease in employment share after the effect of covid compared to before. When Married Alone, Married Alone share decreased (-.0082) units more than that of the Widow employment share, however, is statistically insignificant. In total, Married Alone had a 9.79% decrease in employment share after the effect of covid, however, this value is statistically insignificant. Finally, the Separated marital status had a decrease in employment share by (-.0196) more than the Widow employment share which is statistically significant at the .001 p-level. The total decrease in employment share for the Separated marital status from the effect on covid is 10.93%. Based on these values, it would be in the interest of the Retail department to target the Married marital status group as they had the lowest decrease in employment share and would be the group who kept their job the most and have money to spend.  
+
+Our estimates reflect the effect of the March 2020 date cutoff on the employment share of each of our 6 marital status groups, made up of individuals who are either Widowed, Married, Divorced, Married Alone, Always Single, or Separated. More generally, our estimates capture the effect of the WHO recognition of COVID-19 as a global pandemic on the employment share for each of our marital status groups. 
+
+Figure 6) Monthly Employment Graph, per Marital Status. 
+
+![](Images/Figure%206.png) 
+
+Table 6) Regression Result for Question 3, part 4.  
+
+ ![](Images/Table%206.png)
+
+Main Assumptions of our analysis: 
+
+1.  We assume the only thing jumping at the cutoff is treatment. The only thing different about those just above/below the cutoff is treatment.  
+
+```{=html}
+<!-- -->
+```
+2.  Unobserved Characteristics vary continuously around the cutoff: the observations that lie to the immediate right and left of the cutoff are unique to each other due only to random chance.  
+
+With respect to our analysis, we assume the only thing that changed at the cutoff date is the WHO recognition of COVID as a pandemic. 
+
+We cluster standard errors at the level of our subets. For Q1 & Q2, we cluster by industry, and for Q3 we cluster by demographic subset. This allows auto-correlation over time for each subset group, or for each industry. We assume that standard errors are auto-correlated at the level of clustering.  
+
+We also assume that observations should be weighted differently when implementing our regression analysis, and that the relevant weights are those given in the dataset by IPUMS.  
+
+ 
